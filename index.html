@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Image Editor JavaScript | CodingFast</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="JavaScript" href="ja.js">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"/>
+   
+  </head>
+  <body>
+    <div class="container ">
+        <h2> Photo Editor</h2>
+        <div class="wrapper">
+            <div class="editor-panel">
+                <div class="filter">
+                    <label class="title">Filters</label>
+                    <div class="options">
+                        <button id="brightness" id = "pr" onclick="chbr()" >Brightness</button>
+                        <button id="saturation" id = "pr" onclick="chpr()">Saturation</button>
+                        <button id="inversion" id = "pr" onclick="chin()">Inversion</button>
+                        <button id="grayscale" id = "pr" onclick="chgr()">Grayscale</button>
+                    </div>
+                    <div class="slider">
+                        <div class="filter-info">
+                            <p class="name" id="p1">Brightness</p>
+                            <p class="value" id = "val" >100%</p>
+                        </div>
+                        <input id = "ch" type="range" value="100" min="0" max="200">
+                    </div>
+                </div>
+                <div class="rotate">
+                  <label class="title">Rotate & Flip</label>
+                  <div class="options">
+                      <button id="left1"><i class="fa-solid fa-rotate-left"></i></button>
+                      <button id="right1"><i class="fa-solid fa-rotate-right"></i></button>
+                      <button id="horizontal1"><i class='bx bx-reflect-vertical'></i></button>
+                      <button id="vertical1"><i class='bx bx-reflect-horizontal' ></i></button>
+                  </div>
+              </div>
+
+
+
+                <div class="rotate">
+                    <label class="title">Rotate & Flip</label>
+                    <div class="options">
+                        <button id="left">Rotate</button>
+                        <input id = "ch1" type="range" value="0" min="0" max="360">
+                        <p class="value" id = "val1" >0%</p>
+                        <button id="right">Blur</i></button>
+                        <input id = "ch2" type="range" value="0" min="0" max="100">
+                        <p class="value" id = "val2" >0px</p>
+                        <button id="vertical">Sepia</button>
+                        <input id = "ch4" type="range" value="0" min="0" max="100">
+                        <p class="value" id = "val4" >0px</p>
+                    </div>
+                </div>
+            </div>
+            <div class="preview-img">
+                <img class="im" id="da" src="image-placeholder.svg" alt="preview-img">
+            </div>
+        </div>
+        <div class="controls">
+            <button class="reset-filter" onclick="rf()">Reset Filters</button>
+            <div class="row">
+                <!-- <input type="file" class="file-input" accept="image/*" hidden> -->
+                
+                <input data="chose" type="file" accept="image/*" id="choose-file"  name="choose-file" />
+                <label for="choose-file"  >Choose File</label>
+                <!-- <input class="choose-img" type="button" value="choose-img" /> -->
+                <button class="save-img" id = "dani">Save Image</button>
+            </div>
+        </div>
+    </div>
+  <script>
+var mi;
+var str;
+//******************************Part B_Buttons********************************
+ro1=document.getElementById('right1');
+var sa=0;
+var sa1=0;
+ var sa2=0;
+ro1.addEventListener('click',function(){
+  mi = 'br_r';
+  sa = sa+45;
+  document.getElementById('da').style.webkitTransform="rotate(" + sa + "deg)";
+})
+
+ro2=document.getElementById('left1');
+ro2.addEventListener('click',function(){
+  mi = 'bl_r';
+  sa = sa-45;
+  document.getElementById('da').style.webkitTransform="rotate(" + sa + "deg)";
+})
+
+ro3=document.getElementById('horizontal1');
+ro3.addEventListener('click',function(){
+  mi='h_f';
+  sa2= sa2 - 180;
+  document.getElementById('da').style.webkitTransform="rotateY(" + sa2 + "deg)";;
+})
+
+ro4=document.getElementById('vertical1');
+ro4.addEventListener('click',function(){
+  mi='v_f';
+  sa1= sa1 - 180;
+  document.getElementById('da').style.webkitTransform="rotateX(" + sa1 + "deg)";;
+})
+
+//*******************************Part B_Silders********************************
+
+ro=document.getElementById('ch1');
+ ro.addEventListener('change',function(){
+  str = 'rotate';
+  mi = 's_r';
+    document.getElementById('val1').innerHTML = ro.value + "%";
+    document.getElementById('da').style.webkitTransform="rotate(" + ro.value + "deg)";
+ })
+
+ bl=document.getElementById('ch2');
+ bl.addEventListener('change',function(){
+  str = 'blur';
+  mi = 'blu';
+    document.getElementById('val2').innerHTML = bl.value + "px";
+    document.getElementById('da').style.filter="blur(" + bl.value + "px)";
+ })
+
+ se=document.getElementById('ch4');
+ se.addEventListener('change',function(){
+  str = 'sepia';
+  mi = 'sep';
+    document.getElementById('val4').innerHTML = se.value + "px";
+    document.getElementById('da').style.filter="sepia(" + se.value + "%)";
+ })
+
+//*******************************Reset Filters********************************
+function rf(){
+    preview_img = document.getElementsByClassName('im')[0];
+    //let str = document.getElementById('p1').innerHTML;
+  
+    document.getElementById('val').innerHTML = 100 + "%";
+    preview_img.style.filter = "brightness(" + 0 + "%)";
+    document.getElementById('ch').value = 100;
+  
+  
+    document.getElementById('val').innerHTML = 100 + "%";
+    preview_img.style.filter = "saturate(" + 0 + "%)";
+    document.getElementById('ch').value = 100;
+  
+  
+    document.getElementById('val').innerHTML = 100 + "%";
+    preview_img.style.filter = "invert(" + 0 + "%)";
+    document.getElementById('ch').value = 100;
+  
+  
+    document.getElementById('val').innerHTML = 100 + "%";
+    preview_img.style.filter = "grayscale(" + 0 + "%)";
+    document.getElementById('ch').value = 100;
+  
+  
+    document.getElementById('val1').innerHTML =  "0%";
+    document.getElementById('da').style.webkitTransform="rotate(" + 0 + "deg)";
+    document.getElementById('ch1').value = 0;
+
+  
+  
+    document.getElementById('val2').innerHTML =   "0px";
+    document.getElementById('da').style.filter="blur(" + 0 + "px)";
+    document.getElementById('ch2').value = 0;
+  
+  
+    document.getElementById('val4').innerHTML =  "0px";
+    document.getElementById('da').style.filter="sepia(" + 0 + "%)";
+    document.getElementById('ch4').value = 0;
+  
+}
+
+//*******************************Filters Functions********************************
+function chpr(){
+    document.getElementById('p1').innerHTML="Saturation";
+}
+
+function chin(){
+    document.getElementById('p1').innerHTML="Inversion";
+}
+function chgr(){
+    document.getElementById('p1').innerHTML="Grayscale";
+}
+
+function chbr(){
+    document.getElementById('p1').innerHTML="Brightness";
+}
+//*******************************Filters********************************
+ chbr1=document.getElementById('ch');
+ preview_img = document.getElementsByClassName('im')[0];
+chbr1.addEventListener('change',function(){
+ str = document.getElementById('p1').innerHTML;
+  if(str == "Brightness"){
+    mi='br';
+    document.getElementById('val').innerHTML = chbr1.value + "%";
+    preview_img.style.filter = "brightness(" + chbr1.value + "%)";
+  }
+  else if(str == "Saturation"){
+    mi='sa';
+    document.getElementById('val').innerHTML = chbr1.value + "%";
+    preview_img.style.filter = "saturate(" + chbr1.value + "%)";
+  }
+  else if(str == "Inversion"){
+    mi='in';
+    document.getElementById('val').innerHTML = chbr1.value + "%";
+    preview_img.style.filter = "invert(" + chbr1.value + "%)";
+  }
+  else if(str == "Grayscale"){
+    mi='gr';
+    document.getElementById('val').innerHTML = chbr1.value + "%";
+    preview_img.style.filter = "grayscale(" + chbr1.value + "%)";
+  }
+   
+  
+})
+
+//*******************************SAVE IMAGE********************************
+
+var save_button = document.getElementById("dani");
+        save_button.addEventListener('click',() =>{    
+          
+    var canvas=document.createElement('canvas');
+    var ctx = canvas.getContext("2d");
+    var img = document.getElementById("da");
+    ctx.canvas.width = img.width;
+  ctx.canvas.height = img.height;
+  //ctx.filter = img.style.filter;
+  if(mi == 'br'){
+    ctx.filter = "brightness(" + chbr1.value + "%)";
+    ctx.drawImage(img,0,0,img.width,img.height);
+  }
+  else if(mi == 'sa')
+  {
+    ctx.filter = "saturation(" + chbr1.value + "%)";
+    ctx.drawImage(img,0,0,img.width,img.height);
+  }
+  else if(mi == 'in'){
+    ctx.filter = "invert(" + chbr1.value + "%)";
+    ctx.drawImage(img,0,0,img.width,img.height);
+  }
+  else if(mi == 'gr'){
+   ctx.filter = "grayscale(" + chbr1.value + "%)";
+   ctx.drawImage(img,0,0,img.width,img.height);
+  }
+else if(mi == 'br_r'){
+  var imgwidth = img.offsetWidth;
+    var imgheight = img.offsetHeight;
+    ctx.canvas.width = imgwidth;
+    ctx.canvas.height = imgheight;
+    ctx.translate(imgwidth/2, imgheight/2);
+    ctx.rotate( sa * Math.PI / 180);
+    ctx.drawImage(
+      img, -(imgwidth), -(imgheight)
+    );
+}
+else if(mi == 'bl_r'){
+  var imgwidth = img.offsetWidth;
+    var imgheight = img.offsetHeight;
+    ctx.canvas.width = imgwidth;
+    ctx.canvas.height = imgheight;
+    ctx.translate(imgwidth/2, imgheight/2);
+    ctx.rotate( sa * Math.PI / 180);
+    ctx.drawImage(
+      img, -(imgwidth), -(imgheight)
+    );
+}
+else if(mi == 'h_f'){
+  ctx.scale(-1, 1);
+ctx.drawImage(img, img.width * -1, 0,img.width,img.height);
+}
+else if(mi == 'v_f'){
+  ctx.scale(1,-1);
+ctx.drawImage(img,0,img.height * -1,img.width,img.height);
+}
+else if(mi == 's_r'){
+ 
+  var imgwidth = img.offsetWidth;
+    var imgheight = img.offsetHeight;
+    ctx.canvas.width = imgwidth;
+    ctx.canvas.height = imgheight;
+    ctx.translate(imgwidth/2, imgheight/2);
+    ctx.rotate( ro.value * Math.PI / 180);
+    ctx.drawImage(
+      img, -(imgwidth), -(imgheight)
+    );
+       
+}
+else if(mi == 'blu'){
+  ctx.filter="blur(" + bl.value + "px)";
+  ctx.drawImage(img,0,0,img.width,img.height);
+}
+else if(mi == 'sep'){
+  ctx.filter="sepia(" + se.value + "%)";
+  ctx.drawImage(img,0,0,img.width,img.height);
+}
+           var anchor = document.createElement('a'); 
+                 anchor.href = canvas.toDataURL();
+                 anchor.download="image.jpeg";
+                 anchor.click();
+                 
+        })  
+
+//*******************************CHOOSE IMAGE********************************
+        var image_input =document.getElementById("choose-file");
+        var up_image="";
+        image_input.addEventListener('change',function(){
+         var file = new FileReader();
+         file.addEventListener('load',() =>{
+                   up_image=file.result;
+                   document.getElementById("da").src = up_image;
+         })
+          file.readAsDataURL(this.files[0]);
+          
+        })
+ </script>
+    
+    
+  </body>
+</html>
